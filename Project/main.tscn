@@ -1,0 +1,136 @@
+[gd_scene load_steps=13 format=3 uid="uid://c2ggp54edg8p0"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_kkjad"]
+[ext_resource type="Script" path="res://windowInstance.gd" id="2_7tmfg"]
+[ext_resource type="Texture2D" uid="uid://dw1weefkew36t" path="res://WindowIcons/Close.PNG" id="3_606vg"]
+[ext_resource type="Texture2D" uid="uid://bu6wys6xrgtbk" path="res://WindowIcons/Minimise.PNG" id="3_noy0y"]
+[ext_resource type="Texture2D" uid="uid://dehpxji17mbuu" path="res://WindowIcons/Pin.PNG" id="4_tx4sg"]
+[ext_resource type="Script" path="res://TopBarButtons.gd" id="5_0efr4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p8j70"]
+bg_color = Color(0.0196078, 0.0196078, 0.0588235, 1)
+border_color = Color(0, 0, 0.156863, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_78d6m"]
+bg_color = Color(0.152941, 0.152941, 0.278431, 1)
+border_color = Color(0, 0, 0.156863, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_41qhl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tuvem"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0ifpe"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3i0df"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_kkjad")
+
+[node name="MiniMode" type="Node" parent="."]
+script = ExtResource("2_7tmfg")
+windowSize = Vector2i(250, 150)
+paddingSize = Vector2i(10, 10)
+
+[node name="YearView" type="Node" parent="."]
+
+[node name="MonthView" type="Node" parent="."]
+
+[node name="DayView" type="Node" parent="."]
+
+[node name="Scene" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -294.0
+offset_bottom = -143.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Body" type="Panel" parent="Scene"]
+clip_children = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_p8j70")
+
+[node name="TopBar" type="Panel" parent="Scene/Body"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_78d6m")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Scene/Body/TopBar"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = -7.5
+offset_right = -10.0
+offset_bottom = 7.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+alignment = 2
+
+[node name="MiniButton" type="Button" parent="Scene/Body/TopBar/HBoxContainer"]
+modulate = Color(0.278431, 0.282353, 0.54902, 1)
+custom_minimum_size = Vector2(15, 25)
+layout_mode = 2
+theme_override_colors/icon_hover_color = Color(0.705882, 0.72549, 0.913725, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_41qhl")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_tuvem")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_tuvem")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_0ifpe")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3i0df")
+icon = ExtResource("3_noy0y")
+icon_alignment = 1
+expand_icon = true
+
+[node name="PinButton" type="Button" parent="Scene/Body/TopBar/HBoxContainer"]
+modulate = Color(0.278431, 0.282353, 0.54902, 1)
+custom_minimum_size = Vector2(15, 25)
+layout_mode = 2
+theme_override_colors/icon_hover_color = Color(0.705882, 0.72549, 0.913725, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_41qhl")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_tuvem")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_tuvem")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_0ifpe")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3i0df")
+icon = ExtResource("4_tx4sg")
+icon_alignment = 1
+expand_icon = true
+
+[node name="CloseButton" type="Button" parent="Scene/Body/TopBar/HBoxContainer"]
+modulate = Color(0.278431, 0.282353, 0.54902, 1)
+custom_minimum_size = Vector2(15, 25)
+layout_mode = 2
+theme_override_colors/icon_hover_color = Color(0.705882, 0.72549, 0.913725, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_41qhl")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_tuvem")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_tuvem")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_0ifpe")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_3i0df")
+icon = ExtResource("3_606vg")
+icon_alignment = 1
+expand_icon = true
+
+[node name="TopBarButtons" type="Node" parent="."]
+script = ExtResource("5_0efr4")
+
+[connection signal="gui_input" from="Scene/Body/TopBar" to="TopBarButtons" method="_on_top_bar_gui_input"]
+[connection signal="pressed" from="Scene/Body/TopBar/HBoxContainer/MiniButton" to="TopBarButtons" method="_on_mini_button_pressed"]
+[connection signal="pressed" from="Scene/Body/TopBar/HBoxContainer/PinButton" to="TopBarButtons" method="_on_pin_button_pressed"]
+[connection signal="pressed" from="Scene/Body/TopBar/HBoxContainer/CloseButton" to="TopBarButtons" method="_on_close_button_pressed"]
